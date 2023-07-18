@@ -1,0 +1,25 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    padding: 25px;
+    gap: 10px;
+    border: 1px solid;
+}
+
+.input {
+    max-width: 20vw;
+}
+
+.btn {
+    min-width: 10vw;
+    margin: auto;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(125, 101, 101, 0.382);
+}
+
+.btn:hover {
+background-color: rgb(68, 159, 68);
+}
