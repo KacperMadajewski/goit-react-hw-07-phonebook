@@ -42,9 +42,9 @@ const contactsSlice = createSlice({
       const index = state.list.findIndex(
         contact => contact.id === action.payload.id
       );
-      state.list.splice(index, 1, action.payload);
+      state.list.splice(index, 1);
     },
-  }
-})
+  },
+});
 
 export const contactsReducer = contactsSlice.reducer;
