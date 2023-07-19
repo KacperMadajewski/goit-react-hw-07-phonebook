@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteContact, fetchContacts } from 'redux/operations';
-import {
-  selectError,
-  selectFilteredContacts,
-  selectIsLoding,
-} from 'redux/selectors';
+import { selectError, selectFilteredContacts, selectIsLoding } from 'redux/selectors';
 
 export const ContactsList = () => {
   const isLoading = useSelector(selectIsLoding);
@@ -22,20 +18,20 @@ export const ContactsList = () => {
   return (
     <>
       <ul>
-        {isLoading && !error ? (
-          <p>Contacts loading...</p>
-        ) : filteredContacts.length === 0 && !error ? (
-          <p>The Phonebook is empty. Add your first contact. </p>
+        {isLoading && <p>Loading contacts...</p>}
+        {error && <p>{error}</p>}
+        {filteredContacts.length === 0 && !error ? (
+          <p>The Phonebook is empty. Addyour first contact.</p>
         ) : (
-          filteredContacts.map(({ id, name, phone }) => (
-            <li key={id}>
-              {name}: {phone}
-              <button type="submit" onClick={() => dispatch(deleteContact(id))}>
+          filteredContacts.map(contact => (
+            <li key={contact.id}>
+              {contact.name}: ({contact.phone})
+              <button onClick={() => dispatch(deleteContact(contact.id))}>
                 Delete
               </button>
             </li>
-          ))
-        )}
+          )
+          ))}
       </ul>
     </>
   );

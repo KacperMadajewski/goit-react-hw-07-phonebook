@@ -2,37 +2,24 @@ import Styles from './ContactsForm.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
-import { nanoid } from '@reduxjs/toolkit';
 
 export const ContactsForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
-
-  const list = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const isName = list.some(contact => contact.name === name);
-    if (isName) {
-      alert(`Kontakt ${name} już istnieje!`);
-      return;
-    }
-    const id = nanoid();
-    dispatch(addContact({ id, name, number }));
-    setName('');
-    setNumber('');
+    dispatch(addContact({ name, phone }));
   };
 
   const handleChange = ev => {
     if (ev.target.name === 'name') {
       setName(ev.target.value);
-    } else if (ev.target.name === 'number') {
-      setNumber(ev.target.value);
+    } else if (ev.target.name === 'phone') {
+      setPhone(ev.target.value);
     }
   };
 
@@ -53,12 +40,12 @@ export const ContactsForm = () => {
       <span>Number</span>
       <input
         type="tel"
-        name="number"
+        name="phone"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
         onChange={handleChange}
-        value={number}
+        value={phone}
         placeholder="Write Your number"
         className={Styles.input}
       />
