@@ -17,21 +17,20 @@ export const ContactsList = () => {
 
   return (
     <>
+      {isLoading && <p>Loading contacts...</p>}
+      {error && <p>{error}</p>}
+      {!filteredContacts?.length && !error && !isLoading && (
+        <p>The Phonebook is empty. Addyour first contact.</p>
+      )}
       <ul>
-        {isLoading && <p>Loading contacts...</p>}
-        {error && <p>{error}</p>}
-        {filteredContacts.length === 0 && !error ? (
-          <p>The Phonebook is empty. Addyour first contact.</p>
-        ) : (
-          filteredContacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name}: ({contact.phone})
-              <button onClick={() => dispatch(deleteContact(contact.id))}>
-                Delete
-              </button>
-            </li>
-          )
-          ))}
+        {filteredContacts.map(contact => (
+          <li key={contact.id}>
+            {contact.name}: ({contact.phone})
+            <button onClick={() => dispatch(deleteContact(contact.id))}>
+              Delete
+            </button>
+          </li>
+        ))}
       </ul>
     </>
   );

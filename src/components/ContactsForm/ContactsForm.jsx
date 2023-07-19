@@ -2,18 +2,30 @@ import Styles from './ContactsForm.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactsForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(addContact({ name, phone }));
-  };
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   dispatch(addContact({ name, phone }));
+  // };
+const handleSubmit = ev => {
+  ev.preventDefault();
+  const existingName = contacts.find(
+    value => value.name.toLowerCase() === name.toLowerCase()
+  );
+  existingName
+    ? alert(`Unfortunately name: ${name} allready exist in this contacts!`)
+    : dispatch(addContact({ name, phone }));
+};
+
 
   const handleChange = ev => {
     if (ev.target.name === 'name') {

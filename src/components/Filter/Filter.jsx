@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/filterSlice';
 
 export const Filter = () => {
-  const dispatch = useDispatch();
   const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
 
   return (
-    <>
-      <span>Finde contacts by name</span>
+      <label>
+      Find contacts by name
       <input
         type="text"
         value={filter}
-        placeholder="Write your contact"
-        onChange={ev => dispatch(setFilter(ev.currentTarget.value))}
+        autoComplete="off"
+        placeholder="Write your contact..."
+        onChange={e => dispatch(setFilter(e.currentTarget.value))}
       />
-    </>
+    </label>
   );
 };
 
